@@ -21,11 +21,9 @@
 - **Python**: v3.10.12
 - **googletrans**: v3.1.0a0
 
----
-
 ## 실행 방법
 
-- *npm start*
+- `npm start`
 
 ---
 
