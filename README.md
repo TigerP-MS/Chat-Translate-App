@@ -1,4 +1,33 @@
-# Chat-Trasnslate-App
+# Chat-Translate-App
+
+이 프로젝트는 영어 채팅 번역 프로그램입니다.
+
+---
+
+## 개발 환경
+
+### 프론트엔드
+
+- **Node.js**: v22.0.0
+- **npm**: v10.8.3
+- **React**: v18.3.1
+- **TypeScript**: v5.6.2
+
+#### OCR 관련 패키지
+- **tesseract.js**: v5.1.1
+
+### 백엔드
+
+- **Python**: v3.10.12
+- **googletrans**: v3.1.0a0
+
+---
+
+## 실행 방법
+
+- *npm start*
+
+---
 
 ## 라이선스
 
@@ -9,14 +38,14 @@
 이 프로젝트는 다음의 오픈소스 라이브러리를 사용하며, 각 라이브러리는 해당 고유의 라이선스를 따릅니다:
 
 #### 프론트엔드
-- **React** (v18.3.1): MIT 라이선스
-- **Tesseract.js** (v5.1.1): Apache 2.0 라이선스
-- **Node.js** (v22.0.0): MIT 라이선스
-- **TypeScript** (v5.6.2): Apache 2.0 라이선스
+- **React** : MIT 라이선스
+- **Tesseract.js** : Apache 2.0 라이선스
+- **Node.js** : MIT 라이선스
+- **TypeScript** : Apache 2.0 라이선스
 
 #### 백엔드
-- **Python** (v3.10.12): PSF 라이선스
-- **googletrans** (v3.1.0a0): MIT 라이선스
+- **Python** : PSF 라이선스
+- **googletrans** : MIT 라이선스
 
 ### 주의 사항
 
