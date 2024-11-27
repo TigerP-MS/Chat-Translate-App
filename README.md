@@ -23,8 +23,9 @@
 
 ---
 
-## 🚀 실행 방법 (npm install 이후)
+## 🚀 실행 방법
 
+- **`npm install tesseract.js`**
 - **`npm start`**
 
 ---
