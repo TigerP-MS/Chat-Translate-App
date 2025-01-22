@@ -43,7 +43,7 @@ tasks.named('test') {
 
 
 
-def frontendDir = "$projectDir/src/main/fronted"
+def frontendDir = "$projectDir/src/main/frontend"
 
 sourceSets {
 	main {
@@ -73,11 +73,12 @@ task buildReact(type: Exec) {
 	workingDir "$frontendDir"
 	inputs.dir "$frontendDir"
 	group = BasePlugin.BUILD_GROUP
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine "npm.cmd", "run-script", "build"
-	} else {
-		commandLine "npm", "run-script", "build"
-	}
+	// OS 확인
+	def isWindows = System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')
+
+	// NPM 경로 동적 설정
+	def npmCommand = System.getenv("NVM_BIN") ? System.getenv("NVM_BIN") + "/npm" : (isWindows ? "npm.cmd" : "npm")
+	commandLine npmCommand, "run-script", "build"
 }
 
 task copyReactBuildFiles(type: Copy) {
