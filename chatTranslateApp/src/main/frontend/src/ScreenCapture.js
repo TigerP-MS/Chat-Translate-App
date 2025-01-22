@@ -11,7 +11,7 @@ const ScreenCapture = () => {
     // 화면 캡처 시작
     const startScreenCapture = async () => {
         try {
-            await navigator.mediaDevices.getDisplayMedia({
+            const stream = await navigator.mediaDevices.getDisplayMedia({
                 video: true,
                 audio: false,
             });

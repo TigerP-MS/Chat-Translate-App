@@ -14,8 +14,9 @@ public class TextController {
     private final TextService textService;
 
     @PostMapping("/api/text/translate")
-    public ResponseEntity<String> test(@RequestBody String text) {
-        textService.textToJSON(text);
+    public ResponseEntity<String> textTranslate(@RequestBody String text) {
+        String json = textService.parseToJSON(textService.textToParse(text));
+        textService.callPythonAPI(json);
         return ResponseEntity.status(HttpStatus.OK).body("Success");
     }
 }
