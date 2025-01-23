@@ -7,6 +7,7 @@ const ScreenCapture = () => {
     const canvasRef = useRef(null); // OCR용 캔버스 참조
     const [isCapturing, setIsCapturing] = useState(false);
     const [extractedText, setExtractedText] = useState(''); // OCR 결과 저장
+    const [translatedText, setTranslatedText] = useState({});
 
     // 화면 캡처 시작
     const startScreenCapture = async () => {
@@ -49,7 +50,7 @@ const ScreenCapture = () => {
                     const { data: { text } } = await Tesseract.recognize(canvas, 'eng');
                     setExtractedText(text);
                 }
-            }, 20000);
+            }, 5000);
         }
 
         return () => clearInterval(ocrInterval);
@@ -70,13 +71,13 @@ const ScreenCapture = () => {
         })
         .then(r => r.text())
         .then(response => {
-            console.log(response);
+            setTranslatedText(JSON.parse(response));
         });
     };
 
     const sendExtractedTextToServer = () => {
         if (extractedText.trim() !== '') {
-            sendToServer(extractedText); // 텍스트만 전달
+            sendToServer(extractedText);
         } else {
             console.warn("No extracted text to send!");
         }
@@ -91,23 +92,31 @@ const ScreenCapture = () => {
 
             <button
                 onClick={sendExtractedTextToServer}
-                style={{ marginLeft : "20px" }}>
+                style={{marginLeft: "20px"}}>
                 서버요청
             </button>
 
             {/* 비디오 요소 */}
-            <video ref={videoRef} autoPlay style={{ width: '100%', marginTop: '20px' }} />
+            <video ref={videoRef} autoPlay style={{width: '100%', marginTop: '20px'}}/>
 
             {/* OCR 캔버스 (숨김 처리) */}
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
+            <canvas ref={canvasRef} style={{display: 'none'}}/>
 
             {/* OCR 결과 표시 */}
-            <h2>Extracted Text:</h2>
+            <h2>추출 : </h2>
             <p>{extractedText.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                     {line}
                     <br/>
                 </React.Fragment>
+            ))}</p>
+
+            <h2>번역 : </h2>
+            <p>{translatedText?.data?.map ((item) => (
+                <span key={item.id}>
+                    [{item.time}] {item.username} : {item.message}
+                    <br/>
+                </span>
             ))}</p>
         </div>
     );

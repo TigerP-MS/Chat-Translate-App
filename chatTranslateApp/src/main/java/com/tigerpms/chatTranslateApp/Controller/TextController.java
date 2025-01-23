@@ -15,8 +15,12 @@ public class TextController {
 
     @PostMapping("/api/text/translate")
     public ResponseEntity<String> textTranslate(@RequestBody String text) {
+        System.out.println("Received text to translate:");
+
         String json = textService.parseToJSON(textService.textToParse(text));
-        textService.callPythonAPI(json);
-        return ResponseEntity.status(HttpStatus.OK).body("Success");
+        String translatedData = textService.callPythonAPI(json);
+
+        System.out.println("Translated text successfully:");
+        return ResponseEntity.status(HttpStatus.OK).body(translatedData);
     }
 }

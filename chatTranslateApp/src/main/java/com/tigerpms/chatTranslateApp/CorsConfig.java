@@ -13,8 +13,13 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**") // API 경로
-                        .allowedOrigins("http://localhost:3000") // React 개발 서버 주소
-                        .allowedMethods("GET", "POST", "PUT", "DELETE"); // 허용할 HTTP 메서드
+                        .allowedOrigins("http://localhost:3000",
+                                        "http://127.0.0.1:3000",
+                                        "http://localhost:8080",
+                                        "http://127.0.0.1:8080")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

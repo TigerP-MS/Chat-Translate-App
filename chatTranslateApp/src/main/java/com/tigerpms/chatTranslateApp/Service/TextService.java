@@ -54,12 +54,26 @@ public class TextService {
     public String callPythonAPI(String json) {
         WebClient webClient = WebClient.builder().baseUrl("http://localhost:5000").build();
 
-        Mono<String> response = webClient.post()
+        System.out.println("Calling Python API with:");
+
+        String response = webClient.post()
                 .uri("/api/text/process")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(json)
                 .retrieve()
-                .bodyToMono(String.class);
-        return response.block();
+                .onStatus(
+                        status -> status.isError(),
+                        clientResponse -> {
+                            System.out.println("Error: " + clientResponse.statusCode());
+                            return clientResponse.bodyToMono(String.class)
+                                    .flatMap(errorBody -> Mono.error(new RuntimeException("API Error: " + errorBody)));
+                        }
+                )
+                .bodyToMono(String.class)
+                .block();
+
+        System.out.println("Response from Python API:" + response);
+
+        return response;
     }
 }
