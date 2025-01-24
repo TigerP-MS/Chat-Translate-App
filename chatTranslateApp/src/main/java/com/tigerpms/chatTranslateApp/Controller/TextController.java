@@ -1,5 +1,6 @@
 package com.tigerpms.chatTranslateApp.Controller;
 
+import com.tigerpms.chatTranslateApp.Repository.ChatTranslateRepository;
 import com.tigerpms.chatTranslateApp.Service.TextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class TextController {
 
         String json = textService.parseToJSON(textService.textToParse(text));
         String translatedData = textService.callPythonAPI(json);
+        textService.saveMessage(translatedData);
 
         System.out.println("Translated text successfully:");
         return ResponseEntity.status(HttpStatus.OK).body(translatedData);

@@ -111,6 +111,7 @@ const ScreenCapture = () => {
                 </React.Fragment>
             ))}</p>
 
+            {/* 번역 결과 표시 */}
             <h2>번역 : </h2>
             <p>{translatedText?.data?.map ((item) => (
                 <span key={item.id}>

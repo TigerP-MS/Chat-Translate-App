@@ -1,4 +1,4 @@
-package com.tigerpms.chatTranslateApp;
+package com.tigerpms.chatTranslateApp.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

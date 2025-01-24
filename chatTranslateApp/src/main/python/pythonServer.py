@@ -19,16 +19,23 @@ def process_data():
             mimetype="application/json"
         )
     except Exception as e:
-        return jsonify({"error": "Internal Server Error"}), 500
-
-def signal_handler(sig, frame):
-    print("Shutting down Python server...")
-    sys.exit(0)
+        return jsonify({"error": "Internal Server Error : Python Server Error(process_data)"}), 500
 
 def translate_message(data):
-    for i in data['data']:
-        translated = translator.translate(i['message'])
-        i['message'] = translated
+    messages = []
+    untranslated_indices = []
+
+    for i, message in enumerate(data['data']):
+        if message.get('isTranslated', 0) == 0:
+            messages.append(message['message'])
+            untranslated_indices.append(i)
+
+    if messages:
+        translated = translator.translate_batch(messages)
+
+        for i, idx in enumerate(untranslated_indices):
+            data['data'][idx]['message'] = translated[i]
+
     return data
 
 # @app.route('/api/text/get_translated', methods=['GET'])
@@ -38,6 +45,10 @@ def translate_message(data):
 #         return jsonify(session['data'])
 #     return jsonify({"error": "No data available."}), 404
 
+
+def signal_handler(sig, frame):
+    print("Shutting down Python server...")
+    sys.exit(0)
 
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
