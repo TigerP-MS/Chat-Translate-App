@@ -1,6 +1,5 @@
 package com.tigerpms.chatTranslateApp.Controller;
 
-import com.tigerpms.chatTranslateApp.Repository.ChatTranslateRepository;
 import com.tigerpms.chatTranslateApp.Service.TextService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
+/* 기본 스타일 */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3, h4 {
+    font-size: 1.5rem;
+    color: #222;
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: 1.2rem;
+    color: #444;
+}
+
+/* 네비게이션 스타일 */
+.nav {
+    display: flex;
+    padding: 10px 20px;
+    background-color: #222;
+    align-items: center;
+    color: #fff;
+}
+
+.nav a {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    transition: color 0.2s ease;
+}
+
+.nav a:hover {
+    color: #ff4757;
+}
+
+.nav .logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+}
+
+/* 입력 폼 */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: bold;
+}
+
+form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+form button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* 번역 데이터 목록 */
+.item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.message-text {
+    flex-grow: 1;
+}
+
+.message-actions {
+    display: flex;
+    gap: 10px;
+}
+
+a.action-icon {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+a.action-icon:hover {
+    color: #ff4757;
+}

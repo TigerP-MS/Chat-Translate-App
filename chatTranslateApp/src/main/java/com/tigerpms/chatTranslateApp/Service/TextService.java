@@ -22,9 +22,18 @@ public class TextService {
     private final TextEntry textEntry;
 
     public List<TextEntry.Message> textToParse (String text) {
+        System.out.println(text);
         text = text.replace("\\n", "\n");
         List<TextEntry.Message> textList = new ArrayList<>();
-        String[] lines = text.substring(1, text.length() - 1).split("\\n\\n");
+        String[] lines;
+        if (text.indexOf("[") == 1)
+            lines = text.substring(1, text.length() - 1).split("\\[");
+        else
+            lines = text.substring(text.indexOf("["), text.length() - 1).split("\\[");
+
+        for (int i = 0; i < lines.length; i++) {
+            lines[i] = "[" + lines[i];
+        }
 
         for (int id = 0; id < lines.length; id++) {
             String line = lines[id];
