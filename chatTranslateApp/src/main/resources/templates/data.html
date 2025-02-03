@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="/main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Data</title>
+</head>
+<body>
+<div th:replace="~{ nav.html::navbar }"></div>
+
+<div class="container">
+    <h3>번역 데이터 목록</h3>
+    <div th:each="i : ${items}" class="item">
+        <div class="message-text">
+            <strong>원본:</strong> <span th:text="${i.message}">message</span>
+            <br>
+            <strong>번역:</strong> <span th:text="${i.translatedMessage}">translatedMessage</span>
+        </div>
+        <div class="message-actions">
+            <a th:onClick="|deleteItem(${i.id});|" class="action-icon">🗑️</a>
+            <a th:href="@{/api/data/modify/{id}(id=${i.id})}" class="action-icon">✏️</a>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    deleteItem = ((id) => {
+        fetch("/api/data/delete/" + id,
+            {method: "DELETE"})
+            .then(response => {
+                location.reload();})
+            .then(e => console.log(e));
+    });
+</script>
+</body>
+</html>

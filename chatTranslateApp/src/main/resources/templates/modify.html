@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="/main.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Modify Data</title>
+</head>
+<body>
+<div th:replace="~{ nav.html::navbar }"></div>
+
+<div class="container">
+    <h3>번역 데이터 수정</h3>
+    <form th:action="@{/api/data/modify/{id}(id=${item.id})}" method="post">
+        <label for="message">원본 메시지:</label>
+        <input type="text" name="message" id="message" th:value="${item.message}" placeholder="원본 메시지를 입력하세요">
+
+        <label for="translatedMessage">번역 메시지:</label>
+        <input type="text" name="translatedMessage" id="translatedMessage" th:value="${item.translatedMessage}" placeholder="번역 메시지를 입력하세요">
+
+        <button type="submit">저장</button>
+    </form>
+</div>
+</body>
+</html>

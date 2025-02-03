@@ -11,7 +11,6 @@
 - **Node.js**: v22.0.0
 - **npm**: v10.8.3
 - **React**: v18.3.1
-- **TypeScript**: v5.6.2
 
 #### OCR 관련 패키지
 - **Tesseract.js**: v5.1.1
@@ -19,14 +18,15 @@
 ### 🔧 백엔드
 
 - **Python**: v3.10.12
-- **googletrans**: v3.1.0a0
+- **deep-translator**: v1.11.4
+- **Oracle OpenJDK**: 23.0.1
 
 ---
 
 ## 🚀 실행 방법
 
-- **`npm install tesseract.js`**
-- **`npm start`**
+- **`./gradlew build`**
+- **`java -jar build/libs/chatTranslateApp-0.0.1-SNAPSHOT.jar`**
 
 ---
 
