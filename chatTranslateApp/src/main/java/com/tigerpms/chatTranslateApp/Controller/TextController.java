@@ -18,6 +18,7 @@ public class TextController {
         System.out.println("Received text to translate:");
 
         String json = textService.parseToJSON(textService.textToParse(text));
+
         String translatedData = textService.callPythonAPI(json);
         textService.saveMessage(translatedData);
 
