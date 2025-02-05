@@ -46,7 +46,7 @@
 
 #### 백엔드
 - **Python** : PSF 라이선스
-- **googletrans** : MIT 라이선스
+- **deep-translator** : MIT 라이선스
 
 ### 주의 사항
 
