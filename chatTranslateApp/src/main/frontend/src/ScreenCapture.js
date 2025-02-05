@@ -49,11 +49,11 @@ const ScreenCapture = () => {
                     canvas.width = videoRef.current.videoWidth;
                     canvas.height = videoRef.current.videoHeight;
                     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-
                     const { data: { text } } = await Tesseract.recognize(
                         canvas,
                         'eng',
                         {
+                            psm: 6,
                             tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*[]:',
                         });
                     setExtractedText(text);

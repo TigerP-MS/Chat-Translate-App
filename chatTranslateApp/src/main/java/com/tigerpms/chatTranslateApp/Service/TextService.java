@@ -131,7 +131,6 @@ public class TextService {
         for (TextEntry.Message message : parseFromJSON(translatedData))
             translatedMessages.add(message.getMessage());
         for (int i = 0; i < messages.size(); i++) {
-
             originalMessage = messages.get(i);
             translatedMessage = translatedMessages.get(i);
             if (isTranslated.get(i) == 0 && checkIfTranslated(originalMessage) == 0) {
