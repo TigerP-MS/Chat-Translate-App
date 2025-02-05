@@ -22,20 +22,18 @@ public class TextService {
     private final TextEntry textEntry;
 
     public List<TextEntry.Message> textToParse (String text) {
-        System.out.println(text);
+        System.out.println("Original text: " + text);
         text = text.replace("\\n", "\n");
         List<TextEntry.Message> textList = new ArrayList<>();
         String[] lines;
-        if (text.indexOf("[") == 1)
-            lines = text.substring(1, text.length() - 1).split("\\[");
-        else
-            lines = text.substring(text.indexOf("["), text.length() - 1).split("\\[");
+
+        lines = text.substring(text.indexOf("[")).split("\\[");
 
         for (int i = 0; i < lines.length; i++) {
             lines[i] = "[" + lines[i];
         }
 
-        for (int id = 0; id < lines.length; id++) {
+        for (int id = 1; id < lines.length; id++) {
             String line = lines[id];
             if (line.trim().isEmpty())
                 continue;
@@ -52,6 +50,10 @@ public class TextService {
             }
         }
 
+        System.out.println("Parsed text: ");
+        for (TextEntry.Message message : textList) {
+            System.out.println(message.getId() + " " + message.getTime() + " " + message.getUsername() + " " + message.getMessage());
+        }
         return textList;
     }
 
