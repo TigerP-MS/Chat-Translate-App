@@ -22,19 +22,18 @@ public class TextService {
     private final TextEntry textEntry;
 
     public List<TextEntry.Message> textToParse (String text) {
-        System.out.println("Original text: " + text);
         text = text.replace("\\n", "\n");
         List<TextEntry.Message> textList = new ArrayList<>();
-        String[] lines;
-
-        lines = text.substring(text.indexOf("[")).split("\\[");
-
+        String[] lines = new String[0];
+        if (text.contains("["))
+            lines = text.substring(text.indexOf("[")).split("\\[");
         for (int i = 0; i < lines.length; i++) {
             lines[i] = "[" + lines[i];
         }
 
         for (int id = 1; id < lines.length; id++) {
             String line = lines[id];
+            System.out.println(line);
             if (line.trim().isEmpty())
                 continue;
 
@@ -45,14 +44,16 @@ public class TextService {
             if (timeStart >= 0 && timeEnd > timeStart && colonIndex > timeEnd) {
                 String time = line.substring(timeStart + 1, timeEnd).trim();
                 String username = line.substring(timeEnd + 1, colonIndex).trim();
+                if (username.trim().isEmpty())
+                    continue;
                 String message = line.substring(colonIndex + 1).trim();
                 textList.add(new TextEntry.Message(id, time, username, message, 0));
             }
         }
 
-        System.out.println("Parsed text: ");
+        System.out.println("Parsed text:");
         for (TextEntry.Message message : textList) {
-            System.out.println(message.getId() + " " + message.getTime() + " " + message.getUsername() + " " + message.getMessage());
+            System.out.println(message.getId() + " " + message.getTime() + " " + message.getUsername() + " " + message.getMessage() + " " + message.getIsTranslated());
         }
         return textList;
     }
