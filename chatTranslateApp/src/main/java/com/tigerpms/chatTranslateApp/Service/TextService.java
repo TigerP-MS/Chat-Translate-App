@@ -33,7 +33,6 @@ public class TextService {
 
         for (int id = 1; id < lines.length; id++) {
             String line = lines[id];
-            System.out.println(line);
             if (line.trim().isEmpty())
                 continue;
 
@@ -49,11 +48,6 @@ public class TextService {
                 String message = line.substring(colonIndex + 1).trim();
                 textList.add(new TextEntry.Message(id, time, username, message, 0));
             }
-        }
-
-        System.out.println("Parsed text:");
-        for (TextEntry.Message message : textList) {
-            System.out.println(message.getId() + " " + message.getTime() + " " + message.getUsername() + " " + message.getMessage() + " " + message.getIsTranslated());
         }
         return textList;
     }
@@ -76,7 +70,7 @@ public class TextService {
                 throw new IllegalArgumentException("Input JSON is null or empty.");
             }
 
-            System.out.println("Parsing JSON: " + translatedData);
+            System.out.println("Parsing JSON: ");
 
             TextEntry textEntryObj = objectMapper.readValue(translatedData, TextEntry.class);
             return textEntryObj.getData();
@@ -114,7 +108,7 @@ public class TextService {
                 .bodyToMono(String.class)
                 .block();
 
-        System.out.println("Response from Python API:" + response);
+        System.out.println("Response from Python API:");
 
         return response;
     }

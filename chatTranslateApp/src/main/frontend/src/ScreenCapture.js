@@ -1,15 +1,34 @@
 // src/ScreenCapture.js
 import React, { useRef, useState, useEffect } from 'react';
-import Tesseract from 'tesseract.js';
+import { createWorker } from 'tesseract.js';
 import './ScreenCapture.css';
 
 const ScreenCapture = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
-    const streamRef = useRef(null); // 스트림을 저장
+    const streamRef = useRef(null);
+    const workerRef = useRef(null); // Tesseract worker 저장
     const [isCapturing, setIsCapturing] = useState(false);
     const [extractedText, setExtractedText] = useState('');
     const [translatedText, setTranslatedText] = useState({});
+
+    // Tesseract Worker 초기화
+    useEffect(() => {
+        const initializeWorker = async () => {
+            workerRef.current = await createWorker('eng');
+            await workerRef.current.setParameters({
+                tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,/;\'"!?()[]:<>-_=+*&%$#@ \n',
+                preserve_interword_spaces: '1',
+            });
+        };
+        initializeWorker();
+
+        return () => {
+            if (workerRef.current) {
+                workerRef.current.terminate();
+            }
+        };
+    }, []);
 
     const startScreenCapture = async () => {
         try {
@@ -17,7 +36,7 @@ const ScreenCapture = () => {
                 video: true,
                 audio: false,
             });
-            streamRef.current = stream; // 스트림 저장
+            streamRef.current = stream;
             videoRef.current.srcObject = stream;
             setIsCapturing(true);
         } catch (error) {
@@ -40,7 +59,7 @@ const ScreenCapture = () => {
     useEffect(() => {
         let ocrInterval;
 
-        if (isCapturing) {
+        if (isCapturing && workerRef.current) {
             ocrInterval = setInterval(async () => {
                 if (streamRef.current && canvasRef.current) {
                     const canvas = canvasRef.current;
@@ -49,13 +68,8 @@ const ScreenCapture = () => {
                     canvas.width = videoRef.current.videoWidth;
                     canvas.height = videoRef.current.videoHeight;
                     context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
-                    const { data: { text } } = await Tesseract.recognize(
-                        canvas,
-                        'eng',
-                        {
-                            psm: 6,
-                            tessedit_char_whitelist: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*[]:',
-                        });
+
+                    const { data: { text } } = await workerRef.current.recognize(canvas);
                     setExtractedText(text);
                 }
             }, 5000);
@@ -66,6 +80,7 @@ const ScreenCapture = () => {
 
     useEffect(() => {
         if (extractedText) {
+            console.log(extractedText);
             sendToServer(extractedText);
         }
     }, [extractedText]);
@@ -100,12 +115,7 @@ const ScreenCapture = () => {
             <div className="translation-ocr-results">
                 <div className="ocr-results">
                     <h2>추출 :</h2>
-                    <p>{extractedText.split('\n').map((line, index) => (
-                        <span key={index}>
-                            {line}
-                            <br />
-                        </span>
-                    ))}</p>
+                    <p style={{ whiteSpace: 'pre-line' }}>{extractedText}</p>
                 </div>
                 <div className="arrow">➡</div>
                 <div className="translation-results">
