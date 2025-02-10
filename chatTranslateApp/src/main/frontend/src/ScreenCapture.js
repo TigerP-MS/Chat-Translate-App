@@ -7,12 +7,11 @@ const ScreenCapture = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const streamRef = useRef(null);
-    const workerRef = useRef(null); // Tesseract worker 저장
+    const workerRef = useRef(null);
     const [isCapturing, setIsCapturing] = useState(false);
     const [extractedText, setExtractedText] = useState('');
     const [translatedText, setTranslatedText] = useState({});
 
-    // Tesseract Worker 초기화
     useEffect(() => {
         const initializeWorker = async () => {
             workerRef.current = await createWorker('eng');
@@ -79,10 +78,8 @@ const ScreenCapture = () => {
     }, [isCapturing]);
 
     useEffect(() => {
-        if (extractedText) {
-            console.log(extractedText);
+        if (extractedText)
             sendToServer(extractedText);
-        }
     }, [extractedText]);
 
     const sendToServer = (data) => {

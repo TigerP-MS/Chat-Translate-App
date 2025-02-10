@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
 
-/* 네비게이션 스타일 */
 .nav {
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -27,7 +26,6 @@
     font-size: 1.5rem;
 }
 
-/* ScreenCapture 컨테이너 */
 .screen-capture-container {
     font-family: 'Montserrat', sans-serif;
     display: flex;
@@ -39,7 +37,6 @@
     min-height: 100vh;
 }
 
-/* 버튼 스타일 */
 .button-container {
     margin-bottom: 20px;
     display: flex;
@@ -66,7 +63,6 @@
     background-color: #28a745;
 }
 
-/* 비디오 요소 스타일 */
 .video-element {
     margin-bottom: 20px;
     width: 100%;
@@ -75,7 +71,6 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* 번역 및 OCR 결과를 위한 레이아웃 */
 .translation-ocr-results {
     display: flex;
     justify-content: space-between;

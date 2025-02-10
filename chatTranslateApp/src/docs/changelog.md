@@ -23,3 +23,9 @@
 - id = 1부터 시작하도록 수정하여 실제 데이터와 일관성을 유지
 
 ---
+## v1.0.2 (2025-02-08)
+
+### React에서 Tesseract 작동 방식 변경
+
+- 기존은 초기화 없이 `Tesseract.recognize()`를 사용하던 방식
+- `createrWorker`를 생성한후 useRef를 통해 Worker 인스턴스를 저장 및 재사용하는 방식으로 변경
