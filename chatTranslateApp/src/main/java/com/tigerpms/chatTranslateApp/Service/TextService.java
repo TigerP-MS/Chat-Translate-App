@@ -63,7 +63,6 @@ public class TextService {
         }
     }
 
-    // 리스트 형식의 String를 JSON으로 변환
     public List<TextEntry.Message> parseFromJSON(String translatedData) {
         try {
             if (translatedData == null || translatedData.trim().isEmpty()) {
